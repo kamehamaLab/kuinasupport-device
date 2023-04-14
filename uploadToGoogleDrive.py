@@ -27,10 +27,10 @@ def main():
         dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
         with open('Logs/UploadLog.csv', 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([files[0], fileID, dt_now])
+            writer.writerow([dt_now, files[0], fileID])
         os.remove(filepath)
     else :
-        print("wait")
+        print("wait. don't find files")
         time.sleep(600)
 
 

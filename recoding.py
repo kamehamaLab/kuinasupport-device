@@ -26,8 +26,8 @@ def main():
     stream = audio.open(format = form_1, rate = samp_rate, channels = chans, input_device_index = dev_index,input = True, frames_per_buffer=chunk)
     #print("connected")
     while True:
-        dt_now = datetime.datetime.now()
-        wav_output_filename = ("RECdata/" + dt_now.strftime('%Y_%m_%d-%H_%M_%S') + ".wav")
+        dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
+        wav_output_filename = ("RECdata/" + dt_now + ".wav")
         #print("recording")
         frames = []
         # loop through stream and append audio chunks to frame array
@@ -47,7 +47,7 @@ def main():
 
         with open('Logs/RecodingLog.csv', 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([wav_output_filename])
+            writer.writerow([dt_now, wav_output_filename])
 
     # stop the stream, close it, and terminate the pyaudio instantiation
     stream.stop_stream()
