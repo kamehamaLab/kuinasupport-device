@@ -24,6 +24,10 @@ def main():
         os.makedirs('RECdata')
     print("Make RECdata Dir")
 
+    if not os.path.exists('Images'):
+        os.makedirs('Images')
+    print("Make Images Dir")
+
     # create Log files
     if not os.path.exists('Logs/RecodingLog.csv'):
         with open('Logs/RecodingLog.csv', 'w') as f:
