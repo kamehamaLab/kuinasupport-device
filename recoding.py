@@ -17,8 +17,8 @@ AudioSaveDir = AUDIOSAVEDIR
 
 
 def main():
-    dt_now = datetime.datetime.now()
-    wav_output_filename = (AudioSaveDir + dt_now.strftime('%Y_%m_%d-%H_%M_%S') + ".wav")
+    dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
+    wav_output_filename = (AudioSaveDir + dt_now + ".wav")
 
 
     audio = pyaudio.PyAudio() # create pyaudio instantiation
@@ -27,11 +27,11 @@ def main():
     #print("connected")
     while True:
         dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
-        wav_output_filename = ("RECdata/" + dt_now + ".wav")
+        wav_output_filename = (AudioSaveDir + dt_now + ".wav")
         #print("recording")
         frames = []
         # loop through stream and append audio chunks to frame array
-        for i in range(0,int((samp_rate/chunk)*record_secs)):
+        for i in range(0,int((samp_rate/chunk) * record_secs)):
         	data = stream.read(chunk)
         	frames.append(data)
         stream.stop_stream()

@@ -4,13 +4,17 @@ from picamera import PiCamera
 from time import sleep
 import smbus
 import os
+from InitialValue import IMAGESAVEDIR
 
 camera = PiCamera()
 bus = smbus.SMBus(1)
 address_adt7410 = 0x48
 register_adt7410 = 0x00
 configration_adt7410 = 0x03
+ImagesSaveDir = IMAGESAVEDIR
 
+# ログを取る間隔（秒）
+loggingTime = 10
 
 while True:
     bus.write_word_data(address_adt7410, configration_adt7410, 0x00)
@@ -22,16 +26,17 @@ while True:
         dt_now = datetime.datetime.now()
         dt_now_str = dt_now.strftime('%Y_%m_%d-%H_%M_%S')
         writer = csv.writer(f)
-        writer.writerow([dt_now_str,str(data)])
+        writer.writerow([dt_now_str, str(data)])
         #print("save temp")
 
     camera.start_preview()
     sleep(5) # このスリープは少なくとも2秒必要。カメラの露光時間が必要なため
     dt_now_str = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
-    camera.capture('Images/image' + dt_now_str + '.jpg')
+    imFileName = 'image' + dt_now_str + '.jpg'
+    camera.capture(ImagesSaveDir + imFileName)
     #print("imageSaved")
     camera.stop_preview()
 
-    sleep(10)
+    sleep(loggingTime)
 
 ser.close()

@@ -12,6 +12,9 @@ keyFile = KEYFILE
 dirname = AUDIOSAVEDIR
 updirID = AUDIOUPLOADDIRID
 
+# フォルダに録音データがないときに待つ時間
+waitTime = 600
+
 def main():
     #あとから値を代入する変数郡
     fileID = ""
@@ -31,7 +34,7 @@ def main():
         os.remove(filepath)
     else :
         print("wait. don't find files")
-        time.sleep(600)
+        time.sleep(waitTime)
 
 
 
