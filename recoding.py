@@ -4,7 +4,7 @@ import csv
 import datetime
 import os
 from time import sleep
-from InitialValue import AUDIOSAVEDIR
+from InitialValue import AUDIOSAVEDIR, RECLOGFILE
 
 form_1 = pyaudio.paInt16 # 16-bit resolution
 chans = 2 # 1 channel
@@ -14,6 +14,7 @@ record_secs = 180 # 録音する秒数
 dev_index = 1 # デバイス番号
 
 AudioSaveDir = AUDIOSAVEDIR
+RecLogFile = RECLOGFILE
 
 
 def main():
@@ -45,7 +46,7 @@ def main():
         wavefile.writeframes(b''.join(frames))
         wavefile.close()
 
-        with open('Logs/RecodingLog.csv', 'a') as f:
+        with open(RecLogFile, 'a') as f:
             writer = csv.writer(f)
             writer.writerow([dt_now, wav_output_filename])
 

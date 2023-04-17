@@ -32,4 +32,11 @@ LOGSDIRID = "1s5DCX9C1IcA3p-TeeV_zPvqj2KA65ywE"
 # バッテリーの写真を保存するフォルダ
 IMAGESAVEDIR = "Images/"
 
-# ログ保存フォルダ
+# 温度ログファイル
+TEMPLOGFILE = 'Logs/TempLog.csv'
+
+# レコーディングログファイル
+RECLOGFILE = 'Logs/RecodingLog.csv'
+
+# アップロードログファイル
+UPLOADLOGFILE = 'Logs/UploadLog.csv'

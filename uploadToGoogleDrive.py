@@ -5,12 +5,13 @@ import os
 import csv
 import time
 from GoogleDrivefunc import getGoogleService, uploadFileToGoogleDrive
-from InitialValue import KEYFILE, AUDIOSAVEDIR, AUDIOUPLOADDIRID
+from InitialValue import KEYFILE, AUDIOSAVEDIR, AUDIOUPLOADDIRID, UPLOADLOGFILE
 import datetime
 
 keyFile = KEYFILE
 dirname = AUDIOSAVEDIR
 updirID = AUDIOUPLOADDIRID
+UploadLogFile = UPLOADLOGFILE
 
 # フォルダに録音データがないときに待つ時間
 waitTime = 600
@@ -28,7 +29,7 @@ def main():
         #getGoogleService(keyFile)
         fileID = uploadFileToGoogleDrive(files[0], filepath, updirID, keyFile)
         dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
-        with open('Logs/UploadLog.csv', 'a') as f:
+        with open(UploadLogFile, 'a') as f:
             writer = csv.writer(f)
             writer.writerow([dt_now, files[0], fileID])
         os.remove(filepath)
