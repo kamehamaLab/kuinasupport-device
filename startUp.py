@@ -11,6 +11,7 @@ def yes_no_input():
 
 
 def main():
+    # check profile
     if not os.path.exists('token.json'):
         print("Please prepare a certification file.")
         break
@@ -23,16 +24,15 @@ def main():
         os.makedirs('RECdata')
     print("Make RECdata Dir")
 
-    if not os.path.exists('Logs/DeleteLog.csv'):
-        with open('Logs/DeleteLog.csv', 'w') as f:
-            writer = csv.writer(f)
-            writer.writerow(["filename", "datetime"])
-    print("Make Logs/DeleteLog.csv")
+    if not os.path.exists('Images'):
+        os.makedirs('Images')
+    print("Make Images Dir")
 
+    # create Log files
     if not os.path.exists('Logs/RecodingLog.csv'):
         with open('Logs/RecodingLog.csv', 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(["filename"])
+            writer.writerow(["datetime", "filename"])
     print("Make Logs/RecodingLog.csv")
 
     if not os.path.exists('Logs/TempLog.csv'):
@@ -44,7 +44,7 @@ def main():
     if not os.path.exists('Logs/UploadLog.csv'):
         with open('Logs/UploadLog.csv', 'w') as f:
             writer = csv.writer(f)
-            writer.writerow(["filename", "fileID", "datetime"])
+            writer.writerow(["datetime", "filename", "fileID"])
     print("Make Logs/UploadLog.csv")
 
 

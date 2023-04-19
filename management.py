@@ -4,15 +4,18 @@ from picamera import PiCamera
 from time import sleep
 import smbus
 import os
+from InitialValue import IMAGESAVEDIR, TEMPLOGFILE
 
 camera = PiCamera()
 bus = smbus.SMBus(1)
 address_adt7410 = 0x48
 register_adt7410 = 0x00
 configration_adt7410 = 0x03
+ImagesSaveDir = IMAGESAVEDIR
+TempLogFile = TEMPLOGFILE
 
-if not os.path.exists('Logs'):
-    os.makedirs('Logs')
+# ログを取る間隔（秒）
+loggingTime = 10
 
 while True:
     bus.write_word_data(address_adt7410, configration_adt7410, 0x00)
@@ -20,20 +23,21 @@ while True:
     data = (word_data & 0xff00) >> 8 | (word_data & 0xff) << 8
     data = data >> 3
     data = data/16.
-    with open('Logs/TempLog.csv', 'a') as f:
+    with open(TempLogFile, 'a') as f:
         dt_now = datetime.datetime.now()
         dt_now_str = dt_now.strftime('%Y_%m_%d-%H_%M_%S')
         writer = csv.writer(f)
-        writer.writerow([dt_now_str,str(data)])
+        writer.writerow([dt_now_str, str(data)])
         #print("save temp")
 
     camera.start_preview()
     sleep(5) # このスリープは少なくとも2秒必要。カメラの露光時間が必要なため
     dt_now_str = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
-    camera.capture('images/image' + dt_now_str + '.jpg')
+    imFileName = 'image' + dt_now_str + '.jpg'
+    camera.capture(ImagesSaveDir + imFileName)
     #print("imageSaved")
     camera.stop_preview()
 
-    sleep(10)
+    sleep(loggingTime)
 
 ser.close()

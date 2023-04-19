@@ -4,7 +4,7 @@ import csv
 import datetime
 import os
 from time import sleep
-from InitialValue import AUDIOSAVEDIR
+from InitialValue import AUDIOSAVEDIR, RECLOGFILE
 
 form_1 = pyaudio.paInt16 # 16-bit resolution
 chans = 2 # 1 channel
@@ -14,11 +14,12 @@ record_secs = 180 # 録音する秒数
 dev_index = 1 # デバイス番号
 
 AudioSaveDir = AUDIOSAVEDIR
+RecLogFile = RECLOGFILE
 
 
 def main():
-    dt_now = datetime.datetime.now()
-    wav_output_filename = (AudioSaveDir + dt_now.strftime('%Y_%m_%d-%H_%M_%S') + ".wav")
+    dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
+    wav_output_filename = (AudioSaveDir + dt_now + ".wav")
 
 
     audio = pyaudio.PyAudio() # create pyaudio instantiation
@@ -26,12 +27,12 @@ def main():
     stream = audio.open(format = form_1, rate = samp_rate, channels = chans, input_device_index = dev_index,input = True, frames_per_buffer=chunk)
     #print("connected")
     while True:
-        dt_now = datetime.datetime.now()
-        wav_output_filename = ("RECdata/" + dt_now.strftime('%Y_%m_%d-%H_%M_%S') + ".wav")
+        dt_now = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
+        wav_output_filename = (AudioSaveDir + dt_now + ".wav")
         #print("recording")
         frames = []
         # loop through stream and append audio chunks to frame array
-        for i in range(0,int((samp_rate/chunk)*record_secs)):
+        for i in range(0,int((samp_rate/chunk) * record_secs)):
         	data = stream.read(chunk)
         	frames.append(data)
         stream.stop_stream()
@@ -45,9 +46,9 @@ def main():
         wavefile.writeframes(b''.join(frames))
         wavefile.close()
 
-        with open('Logs/RecodingLog.csv', 'a') as f:
+        with open(RecLogFile, 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([wav_output_filename])
+            writer.writerow([dt_now, wav_output_filename])
 
     # stop the stream, close it, and terminate the pyaudio instantiation
     stream.stop_stream()
