@@ -4,7 +4,7 @@ import csv
 import datetime
 import os
 from time import sleep
-from InitialValue import AUDIOSAVEDIR, RECLOGFILE
+from utils.InitialValue import AUDIOSAVEDIR, RECLOGFILE
 
 form_1 = pyaudio.paInt16 # 16-bit resolution
 chans = 2 # 1 channel

@@ -14,7 +14,6 @@ def main():
     # check profile
     if not os.path.exists('token.json'):
         print("Please prepare a certification file.")
-        break
 
     if not os.path.exists('Logs'):
         os.makedirs('Logs')

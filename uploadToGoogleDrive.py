@@ -4,8 +4,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 import os
 import csv
 import time
-from GoogleDrivefunc import getGoogleService, uploadFileToGoogleDrive
-from InitialValue import KEYFILE, AUDIOSAVEDIR, AUDIOUPLOADDIRID, UPLOADLOGFILE
+from utils.GoogleDrivefunc import getGoogleService, uploadFileToGoogleDrive
+from utils.InitialValue import KEYFILE, AUDIOSAVEDIR, AUDIOUPLOADDIRID, UPLOADLOGFILE
 import datetime
 
 keyFile = KEYFILE
