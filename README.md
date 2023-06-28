@@ -1,5 +1,9 @@
-# kuinasupport
+# kuinasupport-device
 [Google Cloud Platform](https://console.cloud.google.com/getting-started)
+## 想定動作環境
+- Raspberry Pi 3B+ or 4
+- Rasbian
+- python3
 
 ## 初期設定
 GCPにログインして接続用のJsonファイルをダウロードし、フォルダ直下に置く。
